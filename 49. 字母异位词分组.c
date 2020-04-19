@@ -1,0 +1,51 @@
+给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
+
+示例:
+
+输入: ["eat", "tea", "tan", "ate", "nat", "bat"]
+输出:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+说明：
+
+所有输入均为小写字母。
+不考虑答案输出的顺序。
+通过次数66,829提交次数10
+
+
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> result;
+        int index = 0;
+        unordered_map<string,int> work;
+        string temp;
+        int len = strs.size();
+        for(int i=0;i<len;i++)
+        {
+            temp = strs[i];
+            sort(temp.begin(),temp.end());
+            if(work.count(temp) > 0)
+            {
+                result[work[temp]].push_back(strs[i]);
+            }
+            else
+            {
+                vector<string> v;
+                v.push_back(strs[i]);
+                result.push_back(v);
+                work[temp] = index++;
+            }
+
+        }
+        return result;
+        
+    }
+
+   
+};
